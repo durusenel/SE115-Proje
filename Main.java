@@ -55,7 +55,23 @@ public class Main {
     // ======== 10 REQUIRED METHODS (Students fill these) ========
 
     public static String mostProfitableCommodityInMonth(int month) {
-        return "DUMMY"; 
+        if(month < 0 || month >= MONTHS){
+            return "INVALID_MONTH";
+        }
+
+        int maxProfit = profits[month][0][0];
+        int bestCommIndex = -1;
+        for(int c = 0; c < COMMS; c++){
+            int sum = 0;
+            for(int d = 0; d < DAYS; d++){
+                sum+=profits[month][d][c];
+            }
+            if(sum > maxProfit){
+                maxProfit = sum;
+                bestCommIndex = c;
+            }
+        }
+        return commodities[bestCommIndex] + " " + maxProfit;
     }
 
     public static int totalProfitOnDay(int month, int day) {
