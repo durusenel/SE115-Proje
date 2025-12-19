@@ -218,7 +218,30 @@ public class Main {
     }
 
     public static int biggestDailySwing(int month) { 
-        return 1234; 
+        if(month < 0 || month >= MONTHS){
+            return -99999;
+        }
+
+        int maxSwing = 0;
+        int prevTotal = 0;
+        for(int c = 0; c < COMMS; c++){
+            prevTotal+=profits[month][0][c];
+        }
+        for(int day = 2; day <= DAYS; day++){
+            int currTotal = 0;
+            for(int c = 0; c < COMMS; c++){
+                currTotal+=profits[month][day-1][c];
+            }
+            int diff = currTotal - prevTotal;
+            if(diff < 0){
+                diff = -diff;
+            }
+            if(diff > maxSwing){
+                maxSwing = currTotal;
+            }
+            prevTotal = currTotal;
+        }
+        return maxSwing;
     }
     
     public static String compareTwoCommodities(String c1, String c2) { 
