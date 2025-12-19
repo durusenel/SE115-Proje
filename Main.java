@@ -166,7 +166,32 @@ public class Main {
     }
 
     public static int consecutiveLossDays(String comm) { 
-        return 1234; 
+        int commIndex = -1;
+        for(int c = 0; c < COMMS; c++){
+            if(commodities[c].equals(comm)){
+                commIndex = c;
+                break;
+            }
+        }
+        if(commIndex == -1){
+            return -1;
+        }
+
+        int currentStreak = 0;
+        int maxStreak = 0;
+        for(int m = 0; m < MONTHS; m++){
+            for(int d = 0; d < DAYS; d++){
+                if(profits[m][d][commIndex] < 0){
+                    currentStreak++;
+                    if(currentStreak > maxStreak){
+                        maxStreak = currentStreak;
+                    }
+                }else{
+                    currentStreak = 0;
+                }
+            }
+        }
+        return maxStreak;
     }
     
     public static int daysAboveThreshold(String comm, int threshold) { 
