@@ -112,8 +112,27 @@ public class Main {
         return total;
     }
 
-    public static int bestDayOfMonth(int month) { 
-        return 1234; 
+    public static int bestDayOfMonth(int month) {
+        if(month < 0 || month >= MONTHS){
+            return -1;
+        }
+
+        int maxProfit = 0;
+        for(int c = 0; c < COMMS; c++){
+            maxProfit+=profits[month][0][c];
+        }
+        int bestDay = 1;
+        for(int day = 2; day <= DAYS; day++){
+            int total = 0;
+            for(int c = 0; c <= COMMS; c++){
+                total+=profits[month][day-1][c];
+            }
+            if(total > maxProfit){
+                maxProfit = total;
+                bestDay = day;
+            }
+        }
+        return bestDay;
     }
     
     public static String bestMonthForCommodity(String comm) { 
