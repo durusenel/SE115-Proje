@@ -59,9 +59,12 @@ public class Main {
             return "INVALID_MONTH";
         }
 
-        int maxProfit = profits[month][0][0];
-        int bestCommIndex = -1;
-        for(int c = 0; c < COMMS; c++){
+        int maxProfit = 0;
+        int bestCommIndex = 0;
+        for(int d = 0; d < DAYS; d++){
+            maxProfit+=profits[month][d][0];
+        }
+        for(int c = 1; c < COMMS; c++){
             int sum = 0;
             for(int d = 0; d < DAYS; d++){
                 sum+=profits[month][d][c];
@@ -93,7 +96,7 @@ public class Main {
         }
 
         int commIndex = -1;
-        for(c = 0; c < COMMS; c++){
+        for(int c = 0; c < COMMS; c++){
             if(commodities[c].equals(commodity)){
                 commIndex = c;
                 break;
@@ -124,7 +127,7 @@ public class Main {
         int bestDay = 1;
         for(int day = 2; day <= DAYS; day++){
             int total = 0;
-            for(int c = 0; c <= COMMS; c++){
+            for(int c = 0; c < COMMS; c++){
                 total+=profits[month][day-1][c];
             }
             if(total > maxProfit){
@@ -237,7 +240,7 @@ public class Main {
                 diff = -diff;
             }
             if(diff > maxSwing){
-                maxSwing = currTotal;
+                maxSwing = diff;
             }
             prevTotal = currTotal;
         }
